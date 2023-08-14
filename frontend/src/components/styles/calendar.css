@@ -1,0 +1,108 @@
+/* Override default styles for react-calendar */
+.react-calendar {
+  font-family: Arial, sans-serif;
+  width: 300px;
+  max-width: 100%;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.react-calendar__tile {
+  font-size: 16px;
+  padding: 8px;
+}
+
+/* Styling for the header */
+.react-calendar__navigation {
+  background-color: #6699CC;
+  color: #fff;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.react-calendar__navigation button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.react-calendar__navigation button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Styling for the weekdays */
+.react-calendar__month-view__weekdays {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  background-color: #f0f0f0;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Styling for the days */
+.react-calendar__month-view__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 4px;
+  padding: 4px;
+}
+
+.react-calendar__tile--active {
+  background-color: #6699CC;
+  color: #fff;
+}
+
+.react-calendar__tile--active:enabled:hover {
+  background-color: #6699CC;
+}
+
+.react-calendar__tile--now {
+  background-color: #eaf0f6;
+}
+
+.react-calendar__tile--now:enabled:hover {
+  background-color: #dbe4f1;
+}
+
+/* Styling for the footer */
+.react-calendar__navigation button.react-calendar__navigation__label {
+  font-size: 16px;
+}
+
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next2-button {
+  font-size: 12px;
+  margin: 0;
+  padding: 2px;
+  border-radius: 3px;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.react-calendar__navigation__prev2-button:enabled:hover,
+.react-calendar__navigation__next2-button:enabled:hover {
+  background-color: #0056b3;
+}
+
+/* Styling for the footer */
+.react-calendar__navigation .react-calendar__navigation__arrow {
+  font-size: 20px;
+}
+.highlight{
+  color: white;
+  border-radius: 40%;
+  background-color: coral;
+}
