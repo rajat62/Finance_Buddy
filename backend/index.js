@@ -2,7 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors  from "cors";
 import UserRouter from "./routes/user.js";
-import ExpenseRouter from "./routes/expense.js"
+import ExpenseRouter from "./routes/expense.js";
+import CategoryRouter from "./routes/category.js";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 
 app.use("/users", UserRouter)
 app.use("/expense", ExpenseRouter)
+app.use("/category", CategoryRouter)
 const mongoURL = `mongodb+srv://${process.env.CLUSTER}:${process.env.PASSWORD}@cluster0.qqmjyq5.mongodb.net/`;
 
 mongoose.connect(mongoURL).then(()=>{

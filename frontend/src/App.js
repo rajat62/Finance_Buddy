@@ -12,6 +12,7 @@ import Cash from './pages/Cash';
 import History from './pages/History';
 import Stats from './pages/Stats';
 import Filtered from './components/Filtered';
+import Customize from './pages/Customize';
 
 const router = createBrowserRouter(
   createRoutesFromElements([
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
       <Route path="expense" element={<Expense />} />
       <Route path="cash" element={<Cash />} />
       <Route path="history" element={<History />} />
+      <Route path="customize" element={<Customize />} />
       <Route path=":id" element={<Filtered/>} />
     </Route>
   ])

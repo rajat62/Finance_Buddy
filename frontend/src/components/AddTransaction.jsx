@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTransaction } from "../redux/slices/expense";
+import { getCategories } from "../redux/slices/category";
 
 const AddTransaction = () => {
   const { username } = useSelector((state) => state.auth);
+  const { categories } = useSelector((state) => state.category);
   const dispatch = useDispatch();
 
-  const categories = [
-    "Fashion", "Food", "Electronics", "Travel", "Household", "salary"
-  ]
+  useEffect(()=>{
+    dispatch(getCategories(username));
+  }, []) 
   const [formData, setFormData] = useState({
     paymentMethod: "online",
     paymentType: "expense",

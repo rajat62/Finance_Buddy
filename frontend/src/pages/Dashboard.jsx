@@ -6,8 +6,9 @@ import CalenderComponent from "../components/CalenderComponent";
 import Sidebar from "../components/Sidebar";
 import { AiFillGithub, AiOutlineMenu } from "react-icons/ai";
 import AddTransaction from "../components/AddTransaction";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { logoutUser } from "../redux/slices/auth";
+import { GrAdd } from "react-icons/gr";
 
 const Dashboard = () => {
 
@@ -76,7 +77,8 @@ const Dashboard = () => {
               fontSize:"clamp(18px ,1.8vw, 20px)"
             }
           }>There you go,  {username.toUpperCase()}</h4>
-          <div className="d-flex flex-row gap-3">
+          <div className="d-flex flex-row gap-3 align-items-center">
+            <Link to="/dashboard/customize" style={{border:"none"}}><GrAdd className="fs-3" /></Link>
             <AiFillGithub className="fs-1" />
             <button className="btn btn-success" onClick={handleToggle}>
               <AiOutlineMenu />
