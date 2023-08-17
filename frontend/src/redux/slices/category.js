@@ -16,7 +16,6 @@ export const getCategories = createAsyncThunk(
         
         try {
           const response = await API.get( `/getCategories?username=${username}`, );
-          console.log(response.data);
           return response.data
         } catch (error) {
           console.log(error);

@@ -17,7 +17,6 @@ export const getAllTransaction = createAsyncThunk(
     
     try {
       const response = await API.get(`${username}`,);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -31,7 +30,6 @@ export const addTransaction = createAsyncThunk(
   async ({username, formData}, thunkAPI) => {
     try {
       const response = await API.post("", {username, formData});
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -51,6 +49,7 @@ export const expenseSlice = createSlice({
         dates:[],
         aggregatedCategories:[],
         selectedDate: "",
+        monthData:[]
       },
       reducers: {
         
@@ -70,8 +69,14 @@ export const expenseSlice = createSlice({
                       state.expenseBalance= state.expenseBalance+action.payload.amount
                     }
                     state.totalBalance = state.incomeBalance-state.expenseBalance;
+
+                    state.monthData=[];
+
+
                     state.allTransactions.forEach((transaction) => {
-                      const { category, amount } = transaction;
+                      const { category, amount, paymentType, date } = transaction;
+                      const formatedDate = moment(date).format("MMM");
+
                       const existingCategory = state.aggregatedCategories.find(
                         (item) => item.category === category
                       );
@@ -81,7 +86,21 @@ export const expenseSlice = createSlice({
                       } else {
                         state.aggregatedCategories.push({ category, amount });
                       }
+                      const existingMonth = state.monthData.find((item) => item.month === formatedDate);
+
+                      if (existingMonth) {
+                        if (paymentType === "income") {
+                          existingMonth.income += amount;
+                        } else {
+                          existingMonth.expense += amount;
+                        }
+                      } else {
+                        state.monthData.push({ month: formatedDate, income: paymentType === "income" ? amount : 0, expense: paymentType === "expense" ? amount : 0 });
+                      }
+
                     });
+
+                    
                     state.dates = [...state.dates, moment(action.payload.date).format("MMM Do YY")]
               })
               .addCase(addTransaction.rejected, (state, action)=>{
@@ -109,7 +128,9 @@ export const expenseSlice = createSlice({
                     );
                     
                     action.payload.forEach((transaction) => {
-                      const { category, amount } = transaction;
+                      const { category, amount, date, paymentType } = transaction;
+                      const formatedDate = moment(date).format("MMM");
+                      
                       const existingCategory = state.aggregatedCategories.find(
                         (item) => item.category === category
                       );
@@ -119,7 +140,21 @@ export const expenseSlice = createSlice({
                       } else {
                         state.aggregatedCategories.push({ category, amount });
                       }
+
+                      const existingMonth = state.monthData.find((item) => item.month === formatedDate);
+
+                      if (existingMonth) {
+                        if (paymentType === "income") {
+                          existingMonth.income += amount;
+                        } else {
+                          existingMonth.expense += amount;
+                        }
+                      } else {
+                        state.monthData.push({ month: formatedDate, income: paymentType === "income" ? amount : 0, expense: paymentType === "expense" ? amount : 0 });
+                      }
+
                     });
+
               })
               .addCase(getAllTransaction.rejected, (state, action)=>{
                     state.loading=  false;
