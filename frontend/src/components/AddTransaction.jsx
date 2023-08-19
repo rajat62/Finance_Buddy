@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTransaction } from "../redux/slices/expense";
 import { getCategories } from "../redux/slices/category";
+import moment from "moment";
 
 const AddTransaction = () => {
   const { username } = useSelector((state) => state.auth);
@@ -11,11 +12,15 @@ const AddTransaction = () => {
   useEffect(()=>{
     dispatch(getCategories(username));
   }, []) 
+
+  const formattedDate = moment().format('YYYY-MM-DD')
+
   const [formData, setFormData] = useState({
     paymentMethod: "online",
     paymentType: "expense",
     category: categories[0],
     amount: 0,
+    date: formattedDate
   });
 
   const handleChange = (event) => {
@@ -39,8 +44,8 @@ const AddTransaction = () => {
         style={{ width: "80%", fontSize: "1.2rem"}}
         onSubmit={handleSubmit}
       >
-        <div class="form-group">
-          <label for="exampleFormControlSelect1">Payment Type:</label>
+        <div className="form-group">
+          <label htmlFor="exampleFormControlSelect1">Payment Type:</label>
 
           <select
             className="form-control"
@@ -54,8 +59,8 @@ const AddTransaction = () => {
           </select>
         </div>
 
-        <div class="form-group">
-          <label for="exampleFormControlSelect2">Payment Method:</label>
+        <div className="form-group">
+          <label htmlFor="exampleFormControlSelect2">Payment Method:</label>
           <select
             name="paymentMethod"
             className="form-control"
@@ -68,8 +73,8 @@ const AddTransaction = () => {
           </select>
         </div>
 
-        <div class="form-group">
-          <label for="exampleFormControlSelect3">Category:</label>
+        <div className="form-group">
+          <label htmlFor="exampleFormControlSelect3">Category:</label>
           <select
             name="category"
             className="form-control"
@@ -78,18 +83,29 @@ const AddTransaction = () => {
             required
           >
             {
-              categories.map((item)=>{
+              categories.map((item, index)=>{
                 return (
-                  <option value={item}>{item}</option>
+                  <option value={item} key={index}>{item}</option>
                 )
               })
             }
             
           </select>
         </div>
+        <div className="form-group">
+          <label>Date:</label>
+          <input
+            type="date"
+            required
+            name="date"
+            value={formData.date}
+            className="form-control"
+            onChange={handleChange}
+          />
+        </div>
 
-        <div class="form-group">
-          <label for="exampleFormControlInput1">Amount:</label>
+        <div className="form-group">
+          <label htmlFor="exampleFormControlInput1">Amount:</label>
           <input
             type="text"
             name="amount"

@@ -9,7 +9,9 @@ import { useNavigate } from 'react-router-dom';
 const CalenderComponent = () => {
   
       const navigate = useNavigate();
-      const {dates} = useSelector((state)=>state.expense)
+      const {dates} = useSelector((state)=>state.expense);
+
+      console.log(dates);
       const [selectedDate, setSelectedDate] = useState(new Date);
       
       const handleDateClick = date => {  
@@ -25,7 +27,8 @@ const CalenderComponent = () => {
             value={selectedDate.toDateString()}
             onClickDay={handleDateClick}
             tileClassName={({ date, view }) => {
-              if (dates.find((x) => x === moment(date).format("MMM Do YY"))) {
+              if (dates.find((x) => x === moment(date).format("MMM Do YYYY"))) {
+                
                 return "highlight";
               }
             }}

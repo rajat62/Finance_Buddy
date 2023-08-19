@@ -49,7 +49,6 @@ export const expenseSlice = createSlice({
         dates:[],
         aggregatedCategories:[],
         selectedDate: "",
-        monthData:[]
       },
       reducers: {
         
@@ -75,7 +74,6 @@ export const expenseSlice = createSlice({
 
                     state.allTransactions.forEach((transaction) => {
                       const { category, amount, paymentType, date } = transaction;
-                      const formatedDate = moment(date).format("MMM");
 
                       const existingCategory = state.aggregatedCategories.find(
                         (item) => item.category === category
@@ -86,22 +84,11 @@ export const expenseSlice = createSlice({
                       } else {
                         state.aggregatedCategories.push({ category, amount });
                       }
-                      const existingMonth = state.monthData.find((item) => item.month === formatedDate);
-
-                      if (existingMonth) {
-                        if (paymentType === "income") {
-                          existingMonth.income += amount;
-                        } else {
-                          existingMonth.expense += amount;
-                        }
-                      } else {
-                        state.monthData.push({ month: formatedDate, income: paymentType === "income" ? amount : 0, expense: paymentType === "expense" ? amount : 0 });
-                      }
 
                     });
 
                     
-                    state.dates = [...state.dates, moment(action.payload.date).format("MMM Do YY")]
+                    state.dates = [...state.dates, moment(action.payload.date).format("MMM Do YYYY")]
               })
               .addCase(addTransaction.rejected, (state, action)=>{
                     state.loading=  false;
@@ -124,7 +111,7 @@ export const expenseSlice = createSlice({
                     });
                     state.totalBalance = state.incomeBalance-state.expenseBalance;
                     state.dates = action.payload.map(transaction =>
-                      moment(transaction.date).format("MMM Do YY")
+                      moment(transaction.date).format("MMM Do YYYY")
                     );
                     
                     action.payload.forEach((transaction) => {
@@ -139,18 +126,6 @@ export const expenseSlice = createSlice({
                         existingCategory.amount += amount;
                       } else {
                         state.aggregatedCategories.push({ category, amount });
-                      }
-
-                      const existingMonth = state.monthData.find((item) => item.month === formatedDate);
-
-                      if (existingMonth) {
-                        if (paymentType === "income") {
-                          existingMonth.income += amount;
-                        } else {
-                          existingMonth.expense += amount;
-                        }
-                      } else {
-                        state.monthData.push({ month: formatedDate, income: paymentType === "income" ? amount : 0, expense: paymentType === "expense" ? amount : 0 });
                       }
 
                     });

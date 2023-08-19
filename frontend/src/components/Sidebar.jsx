@@ -24,9 +24,9 @@ const Sidebar = ({isOpen}) => {
     <div>
       <nav className={isOpen ? "open sidebar" : "close"}>
         <ul className="pt-4 navbar-links m-0 ps-0">
-          {links.map((item) => {
+          {links.map((item, index) => {
             return (
-              <li className="fs-5 pb-2 list-styling">
+              <li className="fs-5 pb-2 list-styling" key={index}>
                 <Link to={item.link}>{item.icon}</Link>
                 <Link className="showName icons pt-3" to={item.link}>{item.name}</Link>
               </li>

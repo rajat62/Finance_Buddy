@@ -66,6 +66,7 @@ const Dashboard = () => {
           minWidth: centralDivWidth,
           width: windowWidth === 992 ? '100%' : (isOpen ? '100%' : centralDivWidth),
           backgroundColor: 'rgb(236, 244, 247)',
+          height:"auto"
         }}
         className="d-flex flex-column p-4 gap-4"
       >

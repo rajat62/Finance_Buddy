@@ -9,7 +9,6 @@ export const addTransaction =  async(req, res)=>{
       const newTransaction = new Expense({
             ...transactionData, 
             username,
-            date: new Date().toISOString()
       })
 
       try{

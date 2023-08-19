@@ -63,6 +63,12 @@ const History = () => {
     item.totalExpense = expense;
   });
 
+  yearData.sort((a, b) => {
+    const yearA = new Date(a.year).getFullYear();
+    const yearB = new Date(b.year).getFullYear();
+    return yearA - yearB;
+  });
+  console.log(yearData);
 
   const ChartData = {
     labels: yearData.map((item) => moment(item.year).format("YY")), // Labels for X-axis
@@ -103,7 +109,7 @@ const History = () => {
   };
   return (
     <div
-      style={{ height: "80%%", borderRadius: ".8rem" , background: "linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)", fontFamily:" 'Inconsolata', monospace "}}
+      style={{ borderRadius: ".8rem" , background: "linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)", fontFamily:" 'Inconsolata', monospace "}}
       className="p-3 history_body"
     >
       <h6 className="fs-5">Transition History</h6>
