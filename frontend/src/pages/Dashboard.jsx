@@ -80,7 +80,7 @@ const Dashboard = () => {
           }>There you go,  {username.toUpperCase()}</h4>
           <div className="d-flex flex-row gap-3 align-items-center">
             <Link to="/dashboard/customize" style={{border:"none"}}><GrAdd className="fs-3" /></Link>
-            <AiFillGithub className="fs-1" />
+            {/* <AiFillGithub className="fs-1" /> */}
             <button className="btn btn-success" onClick={handleToggle}>
               <AiOutlineMenu />
             </button>

@@ -37,6 +37,21 @@ export const addCategory = createAsyncThunk(
         }
       }
     );
+export const deleteCategory = createAsyncThunk(
+      "category/deleteCategory",
+      async ( {item, username}, thunkAPI) => {
+        
+        try {
+            console.log(item);
+          const response = await API.delete( `/deleteCategory?itemName=${item}&username=${username}`);
+          console.log(response.data);
+          return item;
+        } catch (error) {
+          console.log(error);
+          return thunkAPI.rejectWithValue("User already exists");
+        }
+      }
+    );
 
 const categorySlice = createSlice({
       name: "category",
@@ -68,6 +83,19 @@ const categorySlice = createSlice({
 
                   })
                   .addCase(getCategories.rejected, (state, action)=>{
+                        state.loading=  false;
+                        state.error = action.payload.message;
+                  })
+                  .addCase(deleteCategory.pending, (state,action)=>{
+                        state.loading =true;
+                  })
+                  .addCase(deleteCategory.fulfilled, (state, action)=>{
+                        state.loading =false;
+                        state.categories = state.categories.filter(element => {
+                              return element !== action.payload
+                        });
+                  })
+                  .addCase(deleteCategory.rejected, (state, action)=>{
                         state.loading=  false;
                         state.error = action.payload.message;
                   })

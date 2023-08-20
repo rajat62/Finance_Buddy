@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { addCategory } from '../redux/slices/category';
+import { addCategory, deleteCategory } from '../redux/slices/category';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Customize = () => {
+
+      const {categories} = useSelector(state => state.category)
 
       const dispatch = useDispatch();
 
@@ -22,6 +24,9 @@ const Customize = () => {
             dispatch(addCategory(formData));
           };
 
+          const handleDelete = (item)=>{
+            dispatch(deleteCategory({item, username}))
+          }
   return (
     <div>
       <div>
@@ -30,6 +35,16 @@ const Customize = () => {
                   <input name="name" placeholder='category name' onChange={handleChange} className='w-25 form-control'/>
                   <input type='submit' className='w-25 mt-2 form-control'/>
             </form>
+            <h6 className='pt-5 text-danger'>Delete Category</h6>
+            <div className='pt-2 d-flex flex-row gap-3'>
+              {
+                categories.map((item)=> {
+                  return (
+                      <p style={{cursor:"pointer"}} onClick={( )=> handleDelete(item)}> {item} </p>
+                  )
+                })
+              }
+            </div>
       </div>
     </div>
   )
