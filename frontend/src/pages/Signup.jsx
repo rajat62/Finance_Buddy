@@ -51,7 +51,7 @@ const Signup = () => {
             style={{ height: "10%", width: "100%" , fontSize: "clamp(14px , 2vw, 26px)", textDecoration:"none", cursor:"pointer"}}
             to="/"
           >
-            <span>.</span> Track And Grow
+            <span>.</span> Finance Buddy
           </Link>
           <h6
             style={{fontSize:" clamp(22px, 5.5vw, 60px)", width: "60%", height: "70%" }}
